@@ -1,6 +1,8 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h1>Enter Text Here</h1>
-<h2>Welcome to FlaskApp!</h2>
+    <form action="/home" method="get"></form>
+        <input autocomplete="off" autofocus name="input" placeholder="Input" type="text">
+        <button type="submit">Submit</button>
+
 {% endblock %}
