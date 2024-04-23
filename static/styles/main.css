@@ -1,4 +1,12 @@
 h1 { 
-    color: orange; 
+    color: #3da975; 
     font-weight: bold; 
     } 
+
+.flex-container {
+    display: flex;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    }

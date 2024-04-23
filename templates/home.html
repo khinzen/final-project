@@ -1,8 +1,22 @@
 {% extends "index.html" %}
 
 {% block content %}
-    <form action="/home" method="get"></form>
-        <input autocomplete="off" autofocus name="input" placeholder="Input" type="text">
-        <button type="submit">Submit</button>
-
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">LLM Processing</h1>
+      <p class="lead">Compare LLM Responses Using NLP and Sentiment Analysis</p>
+    </div>
+</div>
+<div class="flex-container">
+    <div class="left-content">
+    <form action="/home" method="get">
+        <label>Enter Prompt</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <button type="button" class="btn btn-outline-success btn-block">Submit Prompt</button>
+    </form>
+    </div>
+    <div class="right-content">
+        <h1>Sample Text</h1>
+    </div>
+</div>
 {% endblock %}
