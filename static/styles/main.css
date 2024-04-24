@@ -10,3 +10,31 @@ h1 {
     padding-bottom: 50px;
     padding-left: 50px;
     }
+
+.left-content {
+    display: flex;
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    width: 40%
+    }
+
+.right-content {
+    display: flex;
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    width: 55%
+    }
+
+#inputform {
+    width: 65%;
+    margin: auto
+}
+
+#prompt {
+    text-align: center;
+    font-size: large;
+}
