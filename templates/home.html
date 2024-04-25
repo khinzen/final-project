@@ -8,12 +8,19 @@
     </div>
 </div>
 <div id="inputform">
-    <form action="/home" method="get">
+    <!-- <form method="post" action="#">
         <div id="prompt">
         <label>Enter Prompt</label>
         </div>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        <button type="button" class="btn btn-outline-success btn-block">Submit Prompt</button>
+        <textarea class="form-control" name="in" value="{{ request.form['in'] }}" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <button type="submit" class="btn btn-outline-success btn-block">Submit Prompt</button>
+    </form> -->
+    <form action="#" method="post">
+        <div id="prompt">
+        <label>Enter Prompt</label>
+        </div>
+        <textarea class="form-control" name="in" value="{{ request.form['in'] }}" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <button type="submit" class="btn btn-outline-success btn-block">Submit Prompt</button>
     </form>
 </div>
 {% endblock %}
