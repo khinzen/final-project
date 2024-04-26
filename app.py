@@ -34,6 +34,10 @@ def hello():
 def index():
     return render_template('index.html')
 
-@app.route('/login')
+@app.route('/login', methods=["POST", "GET"])
 def login():
     return render_template('login.html')
+
+@app.route('/dashboard', methods=["POST", "GET"])
+def dashboard():
+    return render_template('dashboard.html')

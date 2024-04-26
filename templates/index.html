@@ -9,7 +9,7 @@
     <title>FlaskApp</title>
     <nav class="navbar navbar-expand-md navbar-light" style="background-color: #3da975;">
         <a class="navbar-brand" href="{{ url_for('hello') }}">Home</a>
-        <a class="navbar-brand" href="#">Dashboard</a>
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">Dashboard</a>
         <a class="navbar-brand" href="{{ url_for('login') }}">Sign Up/Log In</a>
     </nav>
 </head>
