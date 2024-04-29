@@ -2,12 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for
 from openai import OpenAI
 
 
+
 client = OpenAI(
 api_key = "LL-JsXHgYMuGCr4WmyOeWH5tVD03o57tlJBFXTJG5v2WsnybEoMB01JzbJWkZ8unAg7",
 base_url = "https://api.llama-api.com"
 )
 
-
+#temporary
+logged_in = True
 
 app = Flask(__name__)
 
@@ -40,4 +42,7 @@ def login():
 
 @app.route('/dashboard', methods=["POST", "GET"])
 def dashboard():
-    return render_template('dashboard.html')
+    if logged_in == True:
+        return render_template('dashboard.html')
+    else:
+         return render_template('login.html')
