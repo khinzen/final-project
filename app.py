@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from openai import OpenAI
-
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+ 
 
 
 client = OpenAI(
@@ -12,6 +14,20 @@ base_url = "https://api.llama-api.com"
 logged_in = True
 
 app = Flask(__name__)
+
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SECRET_KEY'] = 'key'
+db = SQLAlchemy(app)
+app.app_context().push()
+
+class User(db.Model, UserMixin):
+     id = db.Column(db.Integer, primary_key=True)
+     username = db.Column(db.String(20), nullable=False, unique=True)
+     password = db.Column(db.String(20), nullable=False)
+
+
 
 @app.route('/', methods=["POST", "GET"])
 def hello():
