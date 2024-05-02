@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
- 
+
+from helpers import sent_score, posneg
 
 
 client = OpenAI(
@@ -44,7 +45,10 @@ def hello():
 
         answer = response.choices[0].message.content
 
-        return render_template('result.html', prompt = prompt, answer = answer)
+        stats = sent_score(answer)
+        pos, neg = posneg(stats, answer)
+
+        return render_template('result.html', prompt = prompt, answer = answer, pos = pos, neg = neg)
     else:
 	    return render_template("home.html")
 

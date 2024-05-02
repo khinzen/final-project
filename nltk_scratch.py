@@ -1,8 +1,10 @@
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-import matplotlib.pyplot as plt
 import pandas as pd
+
+import matplotlib.pyplot as plt
+
 
 sia = SentimentIntensityAnalyzer()
 
