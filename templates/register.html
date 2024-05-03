@@ -4,6 +4,12 @@
 
 <center>
     <br><br>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        {{ form.username }}
+        {{ form.password }}
+        {{ form.submit }}
+    </form><br>
     <a href="{{url_for('login')}}">Already have an account? Log in!</a>
 </center>
 
