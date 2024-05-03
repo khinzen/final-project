@@ -4,6 +4,9 @@
 <div class="flex-container">
     <div class="left-content">
         <div class="card">
+            <div id="rprompt">
+                <label>Original Prompt</label>
+            </div>
             <div class="card-body">
               {{ prompt }}
             </div>
@@ -11,6 +14,9 @@
     </div>
     <div class="right-content">
         <div class="card">
+            <div id="rprompt">
+                <label>Llama Response</label>
+            </div>
             <div class="card-body">
               {{ answer }}
             </div>
@@ -22,17 +28,27 @@
 <div class="flex-container">
     <div class="left-content">
         <div class="card">
+            <div id="rprompt">
+                <label>Most Positive Sentence</label>
+            </div>
             <div class="card-body">
               {{ pos }}
             </div>
           </div>
     </div>
-    <div class="left-content">
+    <div class="right-content">
         <div class="card">
+            <div id="rprompt">
+                <label>Most Negative Sentence</label>
+            </div>
             <div class="card-body">
               {{ neg }}
             </div>
           </div>
     </div>
+</div>
+<hr></hr>
+<div class="flex-container">
+    {{ overall }}
 </div>
 {% endblock %}

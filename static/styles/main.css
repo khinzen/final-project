@@ -38,3 +38,10 @@ h1 {
     text-align: center;
     font-size: large;
 }
+
+#rprompt {
+    text-align: center;
+    font-size: large;
+    padding-top: 25px;
+    font-weight: bold;
+}
