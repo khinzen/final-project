@@ -19,6 +19,9 @@ base_url = "https://api.llama-api.com"
 app = Flask(__name__)
 
 
+
+
+
 bcrypt = Bcrypt(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'key'
@@ -52,6 +55,8 @@ class LoginForm(FlaskForm):
      username = StringField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Username"})
      password = PasswordField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Password"})
      submit = SubmitField("Login")
+
+
 
 
 
