@@ -7,7 +7,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 
 
-from helpers import sent_score, posneg
+from helpers import sent_score, posneg, overall_sentiment
 
 
 client = OpenAI(
@@ -65,10 +65,13 @@ def hello():
 
         answer = response.choices[0].message.content
 
+        # consider bundling all inputs into dictionary
+
         stats = sent_score(answer)
         pos, neg = posneg(stats, answer)
+        overall = overall_sentiment(stats)
 
-        return render_template('result.html', prompt = prompt, answer = answer, pos = pos, neg = neg)
+        return render_template('result.html', prompt = prompt, answer = answer, pos = pos, neg = neg, overall = overall)
     else:
 	    return render_template("home.html")
 
