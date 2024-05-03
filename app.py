@@ -19,9 +19,6 @@ base_url = "https://api.llama-api.com"
 app = Flask(__name__)
 
 
-
-
-
 bcrypt = Bcrypt(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'key'
@@ -61,8 +58,17 @@ class LoginForm(FlaskForm):
 
 
 
-@app.route('/', methods=["POST", "GET"])
+@app.route('/', methods=["GET"])
 def hello():
+	return render_template("home.html")
+
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/result', methods=["POST", "GET"])
+def result():
     if request.method == "POST":
         prompt = request.form["in"]
 
@@ -83,12 +89,6 @@ def hello():
         overall = overall_sentiment(stats)
 
         return render_template('result.html', prompt = prompt, answer = answer, pos = pos, neg = neg, overall = overall)
-    else:
-	    return render_template("home.html")
-
-@app.route('/index')
-def index():
-    return render_template('index.html')
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
