@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
@@ -37,6 +37,11 @@ class User(db.Model, UserMixin):
      id = db.Column(db.Integer, primary_key=True)
      username = db.Column(db.String(20), nullable=False, unique=True)
      password = db.Column(db.String(80), nullable=False)
+
+class Prompts(db.Model):
+     user = db.Column(db.String, primary_key=True)
+     input = db.Column(db.String(1000), nullable=False, unique=False)
+     output = db.Column(db.String(1000), nullable=False)
 
 class RegisterForm(FlaskForm):
      username = StringField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Username"})
@@ -88,6 +93,9 @@ def result():
         pos, neg = posneg(stats, answer)
         overall = overall_sentiment(stats)
 
+        session['prompt'] = prompt
+        session['answer'] = answer
+
         return render_template('result.html', prompt = prompt, answer = answer, pos = pos, neg = neg, overall = overall)
 
 @app.route('/login', methods=["POST", "GET"])
@@ -95,6 +103,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
          user = User.query.filter_by(username=form.username.data).first()
+         session['user'] = user.username
          if user:
               if bcrypt.check_password_hash(user.password, form.password.data):
                    login_user(user)
@@ -117,10 +126,35 @@ def register():
 @app.route('/dashboard', methods=["POST", "GET"])
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    # try:
+    finalUserPrompts = []
+    userPrompts = Prompts.query.filter_by(user = session['user']).all()
+    for entry in userPrompts:
+        prompt = {}
+        prompt["input"] = entry.input
+        prompt["output"] = entry.output
+        finalUserPrompts.append(prompt)
+             
+    # except:
+    #     finalUserPrompts = [{"input": "see input here", "output": "see output here"}]
+    return render_template('dashboard.html', userPrompts = finalUserPrompts)
 
 @app.route('/logout', methods=["POST", "GET"])
 @login_required
 def logout():
      logout_user()
      return redirect(url_for('login'))
+
+@app.route('/save', methods=["POST", "GET"])
+@login_required
+def save():
+    if len(session['prompt']) > 1000:
+        session['prompt'] = session['prompt'][0:999]
+
+    if len(session['answer']) > 1000:
+        session['answer'] = session['answer'][0:999]
+
+    save_prompt = Prompts(user = session['user'], input = session['prompt'], output = session['answer'])
+    db.session.add(save_prompt)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
