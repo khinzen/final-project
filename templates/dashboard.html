@@ -2,9 +2,10 @@
 
 {% block content %}
 <a href="{{ url_for('logout') }}">Log Out</a><br>
-<a href="{{ url_for('hello') }}">Back to Prompt Submission</a><br><br>
-Welcome, {{ current_user.username }}! <br>
-My Saved Results:
+<a href="{{ url_for('hello') }}">Back to Prompt Submission</a>
+<br><br>
+<h2>Welcome, {{ current_user.username }}!</h2> <br><br>
+<h3>My Saved Results:</h3>
 {% for prompt in userPrompts%}
     {% for key, value in prompt.items() %}
         <hr></hr>
