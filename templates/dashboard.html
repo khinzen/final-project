@@ -1,7 +1,8 @@
 {% extends "index.html" %}
 
 {% block content %}
-<a href="{{ url_for('logout') }}">Log Out</a><br><br>
+<a href="{{ url_for('logout') }}">Log Out</a><br>
+<a href="{{ url_for('hello') }}">Back to Prompt Submission</a><br><br>
 Welcome, {{ current_user.username }}! <br>
 My Saved Results:
 {% for prompt in userPrompts%}

@@ -104,7 +104,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
          user = User.query.filter_by(username=form.username.data).first()
-         session['user'] = user.username
+         session['user'] = current_user.username
          if user:
               if bcrypt.check_password_hash(user.password, form.password.data):
                    login_user(user)
