@@ -39,7 +39,8 @@ class User(db.Model, UserMixin):
      password = db.Column(db.String(80), nullable=False)
 
 class Prompts(db.Model):
-     user = db.Column(db.String, primary_key=True)
+     id = db.Column(db.Integer, primary_key=True)
+     user = db.Column(db.String)
      input = db.Column(db.String(1000), nullable=False, unique=False)
      output = db.Column(db.String(1000), nullable=False)
 
