@@ -4,11 +4,11 @@
 <a href="{{ url_for('logout') }}">Log Out</a><br>
 <a href="{{ url_for('hello') }}">Back to Prompt Submission</a>
 <br><br>
-<h2>Welcome, {{ current_user.username }}!</h2> <br><br>
+<center><h2>Welcome, {{ current_user.username }}!</h2></center> <br><br>
 <h3>My Saved Results:</h3>
 {% for prompt in userPrompts%}
-    {% for key, value in prompt.items() %}
-        <hr></hr>
+    <hr></hr>
+    {% for key, value in prompt.items() %} 
         <p>{{ key }}: {{ value }}</p>
     {% endfor %}
 {% endfor %}
