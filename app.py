@@ -44,6 +44,7 @@ class Prompts(db.Model):
      user = db.Column(db.String)
      input = db.Column(db.String(1000), nullable=False, unique=False)
      output = db.Column(db.String(1000), nullable=False)
+     
 
 class RegisterForm(FlaskForm):
      username = StringField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Username"})
@@ -133,8 +134,8 @@ def dashboard():
     userPrompts = Prompts.query.filter_by(user = session['user']).all()
     for entry in userPrompts:
         prompt = {}
-        prompt["input"] = entry.input
-        prompt["output"] = entry.output
+        prompt["Input"] = entry.input
+        prompt["Output"] = entry.output
         finalUserPrompts.append(prompt)
              
     # except:
