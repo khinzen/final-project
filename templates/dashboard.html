@@ -8,8 +8,12 @@
 <h3>My Saved Results:</h3>
 {% for prompt in userPrompts%}
     <hr></hr>
-    {% for key, value in prompt.items() %} 
-        <p>{{ key }}: {{ value }}</p>
+    {% for key, value in prompt.items() %}
+        {% if key == 'Search' %}
+            <p> </p>
+        {% else %} 
+            <p>{{ key }}: {{ value }}</p>
+        {% endif %}
     {% endfor %} 
         <form action="{{ url_for('delete', id=prompt["Search"]) }}">
         <button type="submit">Delete</button>

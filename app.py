@@ -45,6 +45,7 @@ class Prompts(db.Model):
      input = db.Column(db.String(1000), nullable=False, unique=False)
      output = db.Column(db.String(1000), nullable=False)
      
+     
 
 class RegisterForm(FlaskForm):
      username = StringField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Username"})
@@ -98,6 +99,8 @@ def result():
 
         session['prompt'] = prompt
         session['answer'] = answer
+        
+    
 
         return render_template('result.html', prompt = prompt, answer = answer, pos = pos, neg = neg, overall = overall)
 
