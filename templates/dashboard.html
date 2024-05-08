@@ -10,6 +10,8 @@
     <hr></hr>
     {% for key, value in prompt.items() %} 
         <p>{{ key }}: {{ value }}</p>
+    {% endfor %} 
+        <form action="{{ url_for('delete', id=prompt["Search"]) }}">
+        <button type="submit">Delete</button>
     {% endfor %}
-{% endfor %}
 {% endblock %}
