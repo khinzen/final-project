@@ -20,11 +20,13 @@
             <div class="card-body">
               {{ answer }}
             </div>
-          </div>
-          <form action="{{ url_for('save') }}">
-            <button type="submit">Save</button>
-          </form>
-            
+            <center>
+              <form action="{{ url_for('save') }}">
+                <button type="submit">Save</button>
+              </form>
+            </center>
+            <br> 
+        </div>
     </div>
 </div>
 <hr></hr>
@@ -54,5 +56,5 @@
 <div class="flex-container">
     {{ overall }}
 </div>
-<h4><a href="{{ url_for('hello') }}">Back to Prompt Submission</a><br></h4>
+<center><h4><a href="{{ url_for('hello') }}">Back to Prompt Submission</a><br><br></h4></center>
 {% endblock %}
