@@ -44,6 +44,7 @@ class Prompts(db.Model):
      user = db.Column(db.String)
      input = db.Column(db.String(1000), nullable=False, unique=False)
      output = db.Column(db.String(1000), nullable=False)
+     overall = db.Column(db.Integer)
      
      
 
@@ -99,6 +100,7 @@ def result():
 
         session['prompt'] = prompt
         session['answer'] = answer
+        session['overall'] = overall
         
     
 
@@ -140,6 +142,7 @@ def dashboard():
         prompt["Search"] = entry.id
         prompt["Input"] = entry.input
         prompt["Output"] = entry.output
+        prompt["Score"] = entry.overall
         finalUserPrompts.append(prompt)
              
     # except:
@@ -161,7 +164,7 @@ def save():
     if len(session['answer']) > 1000:
         session['answer'] = session['answer'][0:999]
 
-    save_prompt = Prompts(user = session['user'], input = session['prompt'], output = session['answer'])
+    save_prompt = Prompts(user = session['user'], input = session['prompt'], output = session['answer'], overall = session['overall'])
     db.session.add(save_prompt)
     db.session.commit()
     return redirect(url_for('dashboard'))
