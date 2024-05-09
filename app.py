@@ -20,6 +20,8 @@ base_url = "https://api.llama-api.com"
 app = Flask(__name__)
 
 
+#sets up database for logging in and saving the searches of users
+
 bcrypt = Bcrypt(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'key'
@@ -34,11 +36,13 @@ login_manager.login_view = "login"
 def load_user(user_id):
      return User.query.get(int(user_id))
 
+#creates structure for databank of users 
 class User(db.Model, UserMixin):
      id = db.Column(db.Integer, primary_key=True)
      username = db.Column(db.String(20), nullable=False, unique=True)
      password = db.Column(db.String(80), nullable=False)
 
+#creates structure for databank of saved promps and responses for each user
 class Prompts(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      user = db.Column(db.String)
@@ -47,7 +51,7 @@ class Prompts(db.Model):
      overall = db.Column(db.Integer)
      
 
-
+#code for registration
 class RegisterForm(FlaskForm):
      username = StringField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Username"})
      password = PasswordField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Password"})
@@ -58,6 +62,7 @@ class RegisterForm(FlaskForm):
           if existing_user_username:
                raise ValidationError("Choose a different username, that one already exists.")
 
+#code for login
 class LoginForm(FlaskForm):
      username = StringField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Username"})
      password = PasswordField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Password"})
@@ -67,16 +72,17 @@ class LoginForm(FlaskForm):
 
 
 
-
+#displays the home page when app is initially run
 @app.route('/', methods=["GET"])
 def hello():
 	return render_template("home.html")
 
+#this provides the base that the other pages are built on, with the navigation bar at the top
 @app.route('/index')
 def index():
     return render_template('index.html')
 
-
+#this gets the result and routes to the page where that is displayed
 @app.route('/result', methods=["POST", "GET"])
 def result():
     if request.method == "POST":
@@ -107,6 +113,7 @@ def result():
 
         return render_template('result.html', prompt = prompt, answer = answer, pos = pos, neg = neg, overall = overall)
 
+#login page
 @app.route('/login', methods=["POST", "GET"])
 def login():
     form = LoginForm()
@@ -119,6 +126,7 @@ def login():
                    return redirect(url_for('dashboard'))
     return render_template('login.html', form=form)
 
+#register page
 @app.route('/register', methods=["POST", "GET"])
 def register():
     form = RegisterForm()
@@ -128,10 +136,15 @@ def register():
          new_user = User(username=form.username.data, password=hashed_password)
          db.session.add(new_user)
          db.session.commit()
-         return redirect(url_for('login'))
+         user = User.query.filter_by(username=form.username.data).first()
+         if user:
+            session['user'] = user.username
+            login_user(user)
+            return redirect(url_for('dashboard'))
 
     return render_template('register.html', form=form)
 
+#the dashboard, where logged in users can see saved searches, and can log out
 @app.route('/dashboard', methods=["POST", "GET"])
 @login_required
 def dashboard():
@@ -155,12 +168,14 @@ def dashboard():
     #     finalUserPrompts = [{"Input": "see input here", "Output": "see output here"}]
     return render_template('dashboard.html', userPrompts = finalUserPrompts)
 
+#the route behind the logout button, returns user to the login page
 @app.route('/logout', methods=["POST", "GET"])
 @login_required
 def logout():
      logout_user()
      return redirect(url_for('login'))
 
+#the route behind the save button on the result page, sends user to the dashboard
 @app.route('/save', methods=["POST", "GET"])
 @login_required
 def save():
@@ -175,13 +190,13 @@ def save():
     db.session.commit()
     return redirect(url_for('dashboard'))
 
+#the route behind the delete button
 @app.route('/delete/<int:id>', methods=["POST", "GET"])
 @login_required
 def delete(id):
     delete_prompt = Prompts.query.get_or_404(id)
     db.session.delete(delete_prompt)
     db.session.commit()
-    
     return redirect(url_for('dashboard'))
     
 

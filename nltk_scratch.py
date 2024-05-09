@@ -1,3 +1,5 @@
+#functions for sentiment analysis
+
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
