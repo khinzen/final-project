@@ -173,11 +173,12 @@ def save():
 @app.route('/delete/<int:id>', methods=["POST", "GET"])
 @login_required
 def delete(id):
-    delete_prompt = Prompts.query.filter_by(id = id).first()
+    delete_prompt = Prompts.query.get_or_404(id)
     db.session.delete(delete_prompt)
     db.session.commit()
-
+    
     return redirect(url_for('dashboard'))
+    
 
         
      

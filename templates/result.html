@@ -4,7 +4,7 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4">Sentiment Analysis Using NLTK</h1>
-    <p class="lead">find out about the nature of Llama's responses</p>
+    <p class="lead">Find out about the nature of Llama's responses</p>
   </div>
 </div>
 <div class="flex-container">
@@ -28,7 +28,7 @@
             </div>
             <center>
               <form action="{{ url_for('save') }}">
-                <div class="col-6 mx-auto">
+                <div>
                   <button class="btn btn-outline-success btn-block" type="submit">Save</button>
                 </div>
               </form>
@@ -61,9 +61,18 @@
     </div>
 </div>
 <hr></hr>
+<center>A score of 1 is the most positive, and a score of 3 is the most negative.</center>
 <div class="flex-container">
-  <label>Score:&#160;</label>
-    {{ overall }}
+  <div class="left-content">
+    <div class="card">
+        <div id="rprompt">
+            <label>Score</label>
+        </div>
+        <div class="card-body">
+          {{ overall }}
+        </div>
+      </div>
+  </div>
 </div>
 <center>
 <form action="{{ url_for('hello') }}">
