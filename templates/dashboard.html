@@ -1,13 +1,13 @@
 {% extends "index.html" %}
 
 {% block content %}
-<a href="{{ url_for('logout') }}">Log Out</a><br>
-<a href="{{ url_for('hello') }}">Back to Prompt Submission</a>
-<br><br>
-<center><h2>Welcome, {{ current_user.username }}!</h2></center> <br><br>
+<div class="jumbotron jumbotron-fluid">
+    <center><h1>Welcome, {{ current_user.username }}!</h1></center>  
+</div>
+<h5><a href="{{ url_for('logout') }}">Log Out</a></h5><br>
 <h3>My Saved Results:</h3>
 {% for prompt in userPrompts%}
-    <hr></hr>
+    <hr>
     {% for key, value in prompt.items() %}
         {% if key == 'Search' %}
             <p> </p>
@@ -16,6 +16,8 @@
         {% endif %}
     {% endfor %} 
         <form action="{{ url_for('delete', id=prompt["Search"]) }}">
-        <button type="submit">Delete</button>
-    {% endfor %}
+        <button class='deletebutton' type="submit">Delete</button>
+{% endfor %} 
+<hr>
+<center><h4><a href="{{ url_for('hello') }}">Back to Prompt Submission</a></h4></center>
 {% endblock %}

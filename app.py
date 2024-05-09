@@ -46,7 +46,7 @@ class Prompts(db.Model):
      output = db.Column(db.String(1000), nullable=False)
      overall = db.Column(db.Integer)
      
-     
+logged_in = False
 
 class RegisterForm(FlaskForm):
      username = StringField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Username"})
