@@ -142,7 +142,12 @@ def dashboard():
         prompt["Search"] = entry.id
         prompt["Input"] = entry.input
         prompt["Output"] = entry.output
-        prompt["Score"] = entry.overall
+        if entry.overall == 1:
+            prompt["Score"] = "Positive"
+        elif entry.overall == 2:
+            prompt["Score"] = "Neutral"
+        else:
+             prompt["Score"] = "Negative"
         finalUserPrompts.append(prompt)
              
     # except:

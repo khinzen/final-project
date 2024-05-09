@@ -38,6 +38,9 @@
     </div>
 </div>
 <hr></hr>
+<div class="img">
+  <h3>Most Extreme Sentences</h3>
+</div>
 <div class="flex-container">
     <div class="left-content">
         <div class="card">
@@ -61,9 +64,27 @@
     </div>
 </div>
 <hr></hr>
-<div class="flex-container">
-  <label>Score:&#160;</label>
-    {{ overall }}
+<div class="img">
+  <h3>Overall Sentiment</h3>
+</div>
+<div class="img">
+
+  <!-- <label>Score:&#160;</label>
+    {{ overall }} -->
+    {% if overall == 1 %}
+    
+    <img src="{{url_for('static', filename='/images/happy.png')}}">
+    
+    {% elif overall == 2 %}
+    
+    <img src="{{url_for('static', filename='/images/neutral.png')}}">
+    
+    {% else %}
+    
+    <img src="{{url_for('static', filename='/images/sad.png')}}">
+    
+    {% endif %}
+
 </div>
 <center>
 <form action="{{ url_for('hello') }}">

@@ -42,6 +42,13 @@ hr {
     width: 55%
     }
 
+.img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 #inputform {
     width: 65%;
     margin: auto
