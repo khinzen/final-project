@@ -12,3 +12,5 @@ wtforms
 email_validator
 openai
 nltk
+numpy
+pandas

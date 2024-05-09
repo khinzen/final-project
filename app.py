@@ -46,7 +46,7 @@ class Prompts(db.Model):
      output = db.Column(db.String(1000), nullable=False)
      overall = db.Column(db.Integer)
      
-logged_in = False
+
 
 class RegisterForm(FlaskForm):
      username = StringField(validators=[InputRequired(),Length(min=4, max=20)], render_kw={"placeholder": "Username"})
@@ -101,6 +101,7 @@ def result():
         session['prompt'] = prompt
         session['answer'] = answer
         session['overall'] = overall
+        
         
     
 
@@ -174,14 +175,15 @@ def save():
     db.session.commit()
     return redirect(url_for('dashboard'))
 
-@app.route('/delete/<id>', methods=["POST", "GET"])
+@app.route('/delete/<int:id>', methods=["POST", "GET"])
 @login_required
 def delete(id):
     delete_prompt = Prompts.query.get_or_404(id)
     db.session.delete(delete_prompt)
     db.session.commit()
-
+    
     return redirect(url_for('dashboard'))
+    
 
         
      

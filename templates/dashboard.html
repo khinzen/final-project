@@ -11,12 +11,13 @@
     {% for key, value in prompt.items() %}
         {% if key == 'Search' %}
             <p> </p>
-        {% else %} 
+        {% else %}
             <p>{{ key }}: {{ value }}</p>
         {% endif %}
     {% endfor %} 
         <form action="{{ url_for('delete', id=prompt["Search"]) }}">
-        <button class='deletebutton' type="submit">Delete</button>
+        <button class='deletebutton'; type="submit">Delete</button>
+        </form>
 {% endfor %} 
 <hr>
 <center><h4><a href="{{ url_for('hello') }}">Back to Prompt Submission</a></h4></center>
