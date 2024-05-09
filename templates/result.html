@@ -1,6 +1,12 @@
 {% extends "index.html" %}
 
 {% block content %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Sentiment Analysis Using NLTK</h1>
+    <p class="lead">find out about the nature of Llama's responses</p>
+  </div>
+</div>
 <div class="flex-container">
     <div class="left-content">
         <div class="card">
@@ -22,7 +28,9 @@
             </div>
             <center>
               <form action="{{ url_for('save') }}">
-                <button type="submit">Save</button>
+                <div class="col-6 mx-auto">
+                  <button class="btn btn-outline-success btn-block" type="submit">Save</button>
+                </div>
               </form>
             </center>
             <br> 
@@ -57,5 +65,9 @@
   <label>Score:&#160;</label>
     {{ overall }}
 </div>
-<center><h4><a href="{{ url_for('hello') }}">Back to Prompt Submission</a><br><br></h4></center>
+<center>
+<form action="{{ url_for('hello') }}">
+  <button class="btn btn-success btn-block" type="submit">Back to Prompt Submission</button>
+</form>
+</center>
 {% endblock %}

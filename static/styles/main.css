@@ -63,3 +63,9 @@ hr {
     border: none;
     background-color: rgb(239, 166, 88);
 }
+
+#savebutton {
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+}
